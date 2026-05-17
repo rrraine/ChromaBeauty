@@ -27,7 +27,7 @@ def get_region_masks(image_rgb: np.ndarray) -> dict:
         def px(idx):
             return (int(lm[idx].x * W), int(lm[idx].y * H))
 
-        for region, indices, key in [
+        for indices, key in [
             (LIPS_INDICES,  "lips"),
             (CHEEK_L_IDX,   "left_cheek"),
             (CHEEK_R_IDX,   "right_cheek"),

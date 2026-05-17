@@ -3,7 +3,13 @@ from diffusion import DDPM
 from unet import UNet
 from context_encoder import ContextEncoder
 
-model.load_state_dict(torch.load("unet_makeup.pt"))
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+model   = UNet(ctx_dim=512).to(device)
+ddpm    = DDPM(T=1000, device=device)
+ctx_enc = ContextEncoder().to(device)
+
+model.load_state_dict(torch.load("unet_makeup.pt", map_location=device))
 model.eval()
 
 scenarios = [
