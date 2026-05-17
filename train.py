@@ -1,5 +1,6 @@
 import os
 import torch
+import numpy as np
 from torch.utils.data import DataLoader
 from unet import UNet
 from diffusion import DDPM
@@ -51,6 +52,9 @@ else:
         avg = epoch_loss / len(loader)
         losses.append(avg)
         print(f"Epoch {epoch+1}/{EPOCHS}  MSE loss: {avg:.4f}")
+
+    np.save("losses.npy", losses)
+    torch.save(model.state_dict(), CHECKPOINT)
 
     torch.save(model.state_dict(), CHECKPOINT)
     print(f"Model saved to {CHECKPOINT}")
