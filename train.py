@@ -44,7 +44,7 @@ for epoch in range(EPOCHS):
         xt, noise = ddpm.q_sample(x0, t)
 
         ctx      = ctx_enc(prompts, skin_vec)       # (B, 78, 512)
-        eps_pred = model(xt, t, ctx)                # ← t now passed to model
+        eps_pred = model(xt, t, ctx)                # t now passed to model
 
         loss = torch.nn.functional.mse_loss(eps_pred, noise)
         opt.zero_grad()

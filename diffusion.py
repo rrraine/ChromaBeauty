@@ -29,7 +29,7 @@ class DDPM:
 
         for t in reversed(range(self.T)):
             t_batch  = torch.full((shape[0],), t, device=self.device, dtype=torch.long)
-            eps_pred = model(x, t_batch, ctx)   # ← t_batch now passed to model
+            eps_pred = model(x, t_batch, ctx)   # t_batch now passed to model
 
             ab   = self.alpha_bar[t]
             ab1  = self.alpha_bar[t - 1] if t > 0 else torch.tensor(1.0, device=self.device)
