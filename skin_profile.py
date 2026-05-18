@@ -20,10 +20,10 @@ def extract_skin_profile(face_rgb: np.ndarray, skin_mask: np.ndarray) -> dict:
     ma = float(np.mean(a_skin))
     mb = float(np.mean(b_skin))
 
-    # 3. ITA — light-to-dark axis
+    # 3. ITA light-to-dark axis
     ita = float(np.degrees(np.arctan((mL - 50) / (mb + 1e-6))))
 
-    # 4. Hue angle — red vs yellow undertone
+    # 4. Hue angle red vs yellow undertone
     hue_angle = float(np.degrees(np.arctan2(mb, ma)))
 
     return {"ITA": ita, "hue_angle": hue_angle, "L": mL, "a": ma, "b": mb}

@@ -6,10 +6,16 @@ from mask_generator import get_region_masks
 from skin_profile import extract_skin_profile
 
 MAKEUP_PROMPTS = [
+    # Lip prompts
     "soft pink blush", "bold red lipstick", "everyday nude lipstick",
     "deep berry lips", "coral lip gloss", "warm peach blush",
     "rosy pink blush", "golden bronzer", "mauve lips and rose blush",
     "natural makeup look", "warm bronzer and peach blush",
+    # Eyeshadow prompts
+    "dark eyeshadow", "smoky eye", "neutral brown eyeshadow",
+    "bold black eyeshadow", "soft pink eyeshadow", "golden shimmer eyeshadow",
+    "purple eyeshadow", "bronze eye look", "earth tone eyeshadow",
+    "glittery eye makeup", "dark dramatic eye",
 ]
 
 def extract_lip_patch(img_pil, patch_size=64):
@@ -64,7 +70,7 @@ class MakeupDataset(Dataset):
         return len(self.non_makeup_paths)
 
     def __getitem__(self, idx):
-        # ── Non-makeup face (source — skin profile extracted from here) ──
+        #Non-makeup face (source — skin profile extracted from here)
         nm_path  = self.non_makeup_paths[idx]
         nm_fname = os.path.basename(nm_path)
         nm_img   = Image.open(nm_path).convert("RGB").resize((256, 256))
@@ -79,12 +85,12 @@ class MakeupDataset(Dataset):
             profile["hue_angle"] / 180.0,
         ], dtype=torch.float32)
 
-        # ── Makeup face (target — model learns to generate this color) ──
+        #Makeup face (target — model learns to generate this color)
         mk_path = random.choice(self.makeup_paths)
         mk_img  = Image.open(mk_path).convert("RGB").resize((256, 256))
         mk_patch, _, _ = extract_lip_patch(mk_img, self.patch_size)
 
-        # ── Prompt ──
+        #Prompt
         prompt = self.prompts.get(nm_fname, random.choice(MAKEUP_PROMPTS))
 
         return {

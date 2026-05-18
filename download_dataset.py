@@ -3,7 +3,7 @@ import zipfile
 import shutil
 import urllib.request
 
-# ── Config ───────────────────────────────────────────────────────────────
+#Config
 DATA_DIR      = "data"
 NON_MAKEUP    = os.path.join(DATA_DIR, "non_makeup")
 MAKEUP        = os.path.join(DATA_DIR, "makeup")
@@ -12,7 +12,6 @@ MAKEUP        = os.path.join(DATA_DIR, "makeup")
 DATASET_URL   = "https://github.com/wtjiang98/BeautyGAN_pytorch/archive/refs/heads/master.zip"
 ZIP_NAME      = "beautygan.zip"
 EXTRACT_DIR   = "beautygan_tmp"
-# ─────────────────────────────────────────────────────────────────────────
 
 def download(url, dest):
     print(f"Downloading {url} ...")

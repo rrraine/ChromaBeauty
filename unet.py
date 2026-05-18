@@ -88,7 +88,7 @@ class UNet(nn.Module):
             nn.Linear(time_dim, time_dim),
         )
 
-        # Encoder — every ConvBlock receives the time embedding
+        # Encoder: every ConvBlock receives the time embedding
         self.enc  = nn.ModuleList([
             ConvBlock(3 if i == 0 else chs[i - 1], chs[i], time_emb_dim=time_dim)
             for i in range(4)
